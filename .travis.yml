@@ -16,7 +16,8 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - docker pull jenkins/jenkins:lts
-  - docker run -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Djenkins.install.runSetupWizard=false" jenkins/jenkins:lts
+  - dockebuild -t jenkins .
+  - docker run -p 8080:8080 -p 50000:50000 --env JAVA_OPTS="-Djenkins.install.runSetupWizard=false" jenkins
   - docker ps -a
 install:
   - pip install -r requirements.txt
