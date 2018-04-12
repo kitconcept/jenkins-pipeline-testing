@@ -43,18 +43,21 @@ Scenario: Jenkins is up and running
 Scenario: Pipeline job is present
   Go To  ${SERVER}/view/All/newJob
   Wait until page contains element  css=#name
-  Input Text  css=#name  Pipeline
-  Click Element  css=.org_jenkinsci_plugins_workflow_job_WorkflowJob
+  Page should contain  Pipeline
+  Page should contain  Suitable for building pipelines
+  # Input Text  css=#name  Pipeline
+  # Click Element  css=.org_jenkinsci_plugins_workflow_job_WorkflowJob
   # Click button  OK
   # Debug
 
 Scenario: Test Pipeline
   Set up pipeline
   Go to  ${SERVER}/job/pipeline/build?delay=0sec
-  Go to  ${SERVER}/job/pipeline/
+  Go to  ${SERVER}/job/pipeline
   Wait until page contains  1
   Go to  ${SERVER}/job/pipeline/1
   Wait until page contains  Build #1
+  Wait until page contains element  css=.icon-blue
   Page should contain element  css=.icon-blue
 
 *** Keywords ***
