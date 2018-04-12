@@ -23,8 +23,8 @@ Scenario: Jenkins is up and running
   # Wait until page contains element  css=#header
   Page should not contain  log in
   # Wait until page contains element  css=#tasks
-  ${html}=  Get source
-  Log  ${html}  WARN
+  # ${html}=  Get source
+  # Log  ${html}  WARN
   Wait until page contains element  xpath=//a[@href='/manage']
   Page should contain element  xpath=//a[@href='/manage']
 
@@ -38,12 +38,12 @@ Scenario: Jenkins is up and running
 #  Wait until page contains element  css=#scheduleRestart
 #  Select checkbox  css=#scheduleRestartCheckbox
 
-# Scenario: Create Pipeline Job
-#   Go To  ${SERVER}/view/All/newJob
-#   Wait until page contains element  css=#name
-#   Input Text  css=#name  Pipeline
-#   Click Element  css=.org_jenkinsci_plugins_workflow_job_WorkflowJob
-#   Click button  OK
+Scenario: Create Pipeline Job
+  Go To  ${SERVER}/view/All/newJob
+  Wait until page contains element  css=#name
+  Input Text  css=#name  Pipeline
+  Click Element  css=.org_jenkinsci_plugins_workflow_job_WorkflowJob
+  Click button  OK
 
 
 *** Keywords ***
