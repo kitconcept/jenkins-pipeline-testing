@@ -2,7 +2,7 @@
 
 ${HOSTNAME}             127.0.0.1
 ${PORT}                 8080
-${SERVER}               http://${HOSTNAME}:${PORT}/
+${SERVER}               http://${HOSTNAME}:${PORT}
 ${BROWSER}              chrome
 
 
@@ -10,6 +10,8 @@ ${BROWSER}              chrome
 
 Documentation   Jenkins Pipeline Job Acceptance Test
 Library         SeleniumLibrary  timeout=30  implicit_wait=0
+# Library         DebugLibrary
+Library         OperatingSystem
 Test Setup      Test Setup
 Test Teardown   Close Browser
 
@@ -38,13 +40,22 @@ Scenario: Jenkins is up and running
 #  Wait until page contains element  css=#scheduleRestart
 #  Select checkbox  css=#scheduleRestartCheckbox
 
-Scenario: Create Pipeline Job
+Scenario: Pipeline job is present
   Go To  ${SERVER}/view/All/newJob
   Wait until page contains element  css=#name
   Input Text  css=#name  Pipeline
   Click Element  css=.org_jenkinsci_plugins_workflow_job_WorkflowJob
-  Click button  OK
+  # Click button  OK
+  # Debug
 
+Scenario: Test Pipeline
+  Set up pipeline
+  Go to  ${SERVER}/job/pipeline/build?delay=0sec
+  Go to  ${SERVER}/job/pipeline/
+  Wait until page contains  1
+  Go to  ${SERVER}/job/pipeline/1
+  Wait until page contains  Build #1
+  Page should contain element  css=.icon-blue
 
 *** Keywords ***
 
@@ -52,3 +63,6 @@ Test Setup
   Open Browser  ${SERVER}  ${BROWSER}
   Set Window Size  1024  768
 
+Set up Pipeline
+  Run  wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+  Run  java -jar jenkins-cli.jar -s http://localhost:8080 create-job pipeline < pipeline.xml
