@@ -43,6 +43,7 @@ Scenario: Jenkins is up and running
 Scenario: Pipeline job is present
   Go To  ${SERVER}/view/All/newJob
   Wait until page contains element  css=#name
+  Wait until page contains  Pipeline
   Page should contain  Pipeline
   Page should contain  Suitable for building pipelines
   # Input Text  css=#name  Pipeline
