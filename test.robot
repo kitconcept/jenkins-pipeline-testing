@@ -68,5 +68,5 @@ Test Setup
   Set Window Size  1024  768
 
 Set up Pipeline
-  Run  wget http://localhost:8080/jnlpJars/jenkins-cli.jar
+  Run  wget http://localhost:8080/jnlpJars/jenkins-cli.jar -nc -O jenkins-cli.jar
   Run  java -jar jenkins-cli.jar -s http://localhost:8080 create-job pipeline < pipeline.xml
