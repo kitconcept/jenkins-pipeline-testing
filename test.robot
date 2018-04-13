@@ -59,6 +59,8 @@ Scenario: Test Pipeline
   Wait until page contains  1
   Go to  ${SERVER}/job/pipeline/1
   Wait until page contains  Build #1
+  ${html}=  Get source
+  Log  ${html}  WARN
   Wait until page contains element  css=.icon-blue
   Page should contain element  css=.icon-blue
 
