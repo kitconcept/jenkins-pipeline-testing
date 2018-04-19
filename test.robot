@@ -62,6 +62,17 @@ Scenario: Test Pipeline
   # Log  ${html}  WARN
   Page should contain element  css=.icon-blue
 
+Scenario: Test Lockable Pipeline
+  Set up pipeline  Jenkinsfile.lock
+  Go to  ${SERVER}/job/pipeline/build?delay=0sec
+  Sleep  10
+  Go to  ${SERVER}/job/pipeline/1
+  Wait until page contains  Build #1
+  # ${html}=  Get source
+  # Log  ${html}  WARN
+  Page should contain element  css=.icon-blue
+
+
 *** Keywords ***
 
 Test Setup
