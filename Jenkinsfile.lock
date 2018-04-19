@@ -1,3 +1,28 @@
-node {
-   echo 'lock works!'
+pipeline {
+    agent any
+
+    stages {
+        stage("stage 0") {
+            steps {
+                lock(resource: "mylock") {
+                    echo "stage 0"
+                    sh "sleep 5"
+                }
+            }
+        }
+        stage("stage 1") {
+            steps {
+                lock(resource: "mylock") {
+                    echo "stage 1"
+                    sh "sleep 5"
+                }
+            }
+        }
+        stage("stage 2") {
+            steps {
+                echo "stage 2"
+                sh "sleep 5"
+            }
+        }
+    }
 }
