@@ -57,12 +57,12 @@ Scenario: Test Pipeline
   Go to  ${SERVER}/job/pipeline/build?delay=0sec
   Go to  ${SERVER}/job/pipeline
   Wait until page contains  1
+  Sleep  30
   Go to  ${SERVER}/job/pipeline/1
   Wait until page contains  Build #1
-  Sleep  30
   ${html}=  Get source
   Log  ${html}  WARN
-  Wait until page does not contain element  xpath=//*[@tooltip="In progress"]
+  Wait until page does not contain element  xpath=//*[@tooltip="In progress"]  timeout=60
   Wait until page contains element  css=.icon-blue
   Page should contain element  css=.icon-blue
 
