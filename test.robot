@@ -68,12 +68,13 @@ Test Setup
   Open Browser  ${SERVER}  ${BROWSER}
   Set Window Size  1024  768
 
-Set up Pipeline
+Set up pipeline
+  [Arguments]  ${Jenkinsfile}=Jenkinsfile
   Run  wget http://localhost:8080/jnlpJars/jenkins-cli.jar -nc -O jenkins-cli.jar
   Run  java -jar jenkins-cli.jar -s http://localhost:8080 create-job pipeline < pipeline.xml
-  ${Jenkinsfile}=  Get File  Jenkinsfile
+  ${JenkinsfileContent}=  Get File  ${Jenkinsfile}
   ${XML}=	Parse XML	 pipeline.xml
   # Clear Element  ${XML}  xpath=//script
-  Set Element Text  ${XML}  text=${Jenkinsfile}  xpath=definition/script
+  Set Element Text  ${XML}  text=${JenkinsfileContent}  xpath=definition/script
   ${script}=  Get element text  ${XML}  xpath=definition/script
   Log  ${script}  WARN
