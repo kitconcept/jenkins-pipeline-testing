@@ -85,7 +85,6 @@ Set up pipeline
   Run  java -jar jenkins-cli.jar -s http://localhost:8080 create-job pipeline < pipeline.xml
   ${JenkinsfileContent}=  Get File  ${Jenkinsfile}
   ${XML}=	Parse XML	 pipeline.xml
-  # Clear Element  ${XML}  xpath=//script
   Set Element Text  ${XML}  text=${JenkinsfileContent}  xpath=definition/script
   ${script}=  Get element text  ${XML}  xpath=definition/script
   Log  ${script}  WARN
